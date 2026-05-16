@@ -1,0 +1,17 @@
+/* Custom glassmorphism/gradients (used in addition to Tailwind) */
+
+.glass {
+    background-color: rgba(24, 24, 32, 0.7);
+    backdrop-filter: blur(14px) saturate(180%);
+    border-radius: 1rem;
+    border: 1px solid rgba(100, 110, 160, 0.14);
+    box-shadow: 0 6px 32px 0 rgba(13,19,32,0.12);
+}
+
+.neon-btn {
+    box-shadow: 0 2px 16px 0 #6df0ff77, 0 0 2px 0 #341f97;
+}
+
+@media (max-width:600px) {
+    .glass { border-radius: 0.5rem; }
+}
