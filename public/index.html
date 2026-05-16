@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendora Market - Nigeria's Digital Marketplace</title>
-    <link rel="icon" href="favicon.ico" />
+    <link rel="icon" href="/assets/img/favicon.ico" />
     <!-- TailwindCSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons CDN -->
@@ -20,17 +20,17 @@
 <!-- Navigation Bar -->
 <nav class="flex items-center justify-between px-5 py-4 glass mb-2 fixed w-full z-40 shadow-md">
     <div class="flex items-center gap-2">
-        <img src="/assets/img/logo.png" alt="Logo" class="h-9 rounded-full shadow" />
+        <div class="h-9 w-9 rounded-full bg-gradient-to-r from-gold-400 to-blue-500 flex items-center justify-center font-bold text-black">V</div>
         <span class="font-bold text-xl tracking-wide text-gold-400">Vendora Market</span>
     </div>
     <div class="flex items-center gap-4">
-        <button onclick="openModal('signup-modal')" class="neon-btn px-5 py-2 rounded-full font-semibold bg-gradient-to-r from-gold-400 to-blue-500">Create Account</button>
+        <button onclick="openModal('signup-modal')" class="neon-btn px-5 py-2 rounded-full font-semibold bg-gradient-to-r from-gold-400 to-blue-500 text-black hover:scale-105 transition">Create Account</button>
         <a href="/login.html" class="font-semibold hover:underline">Login</a>
-        <button onclick="toggleDarkMode()" title="Toggle dark mode">
-            <i data-lucide="moon" class="w-7 h-7 text-gold-300"></i>
+        <button onclick="toggleDarkMode()" title="Toggle dark mode" class="hover:scale-110 transition">
+            <svg class="w-7 h-7 text-gold-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
-        <div onclick="openModal('notifications-modal')" class="relative cursor-pointer ml-2">
-            <i data-lucide="bell" class="w-7 h-7"></i>
+        <div onclick="openModal('notifications-modal')" class="relative cursor-pointer ml-2 hover:scale-110 transition">
+            <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
             <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-600 text-xs px-1.5 rounded-full"></span>
         </div>
         <a href="/wallet.html" class="hidden md:inline-block ml-4 px-4 py-1 rounded-full glass text-gold-400 border border-gold-400 font-bold">Wallet <span id="walletPreview">₦0</span></a>
@@ -49,25 +49,33 @@
                 <svg class="animate-spin h-10 w-10 text-gold-400" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="3" stroke="currentColor" fill="none"/></svg>
             </div>
         </div>
-        <!-- Floating Social Media Logos -->
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/whatsapp.svg"
-            class="absolute floating-icon left-[10%] top-[45%] w-8 h-8 bg-white rounded-full shadow-lg p-1" alt="WhatsApp" />
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg"
-            class="absolute floating-icon left-[25%] top-[15%] w-9 h-9 bg-white rounded-full shadow-lg p-1" alt="Facebook" />
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg"
-            class="absolute floating-icon right-[14%] top-[25%] w-8 h-8 bg-white rounded-full shadow-lg p-1" alt="Instagram" />
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tiktok.svg"
-            class="absolute floating-icon bottom-[13%] right-[30%] w-8 h-8 bg-white rounded-full shadow-lg p-1" alt="TikTok" />
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/twitter.svg"
-            class="absolute floating-icon top-[12%] right-[33%] w-7 h-7 bg-white rounded-full shadow-lg p-1" alt="Twitter" />
+        
+        <!-- Floating Social Media Icons (SVG replacements) -->
+        <!-- WhatsApp -->
+        <svg class="absolute floating-icon left-[10%] top-[45%] w-8 h-8 text-green-400 bg-white rounded-full shadow-lg p-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004a9.87 9.87 0 00-4.946 1.23l-.356.214-3.71-.973.992 3.63-.235.374a9.861 9.861 0 001.516 5.394c.375.552.828 1.059 1.341 1.494.513.436 1.074.802 1.667 1.084.593.282 1.207.489 1.826.596 1.288.211 2.59-.045 3.8-.558 2.75-1.242 4.738-3.95 4.738-7.172 0-4.307-3.414-7.8-7.614-7.8z"/></svg>
+        
+        <!-- Facebook -->
+        <svg class="absolute floating-icon left-[25%] top-[15%] w-9 h-9 text-blue-600 bg-white rounded-full shadow-lg p-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        
+        <!-- Instagram -->
+        <svg class="absolute floating-icon right-[14%] top-[25%] w-8 h-8 text-pink-500 bg-white rounded-full shadow-lg p-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.322a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z"/></svg>
+        
+        <!-- TikTok -->
+        <svg class="absolute floating-icon bottom-[13%] right-[30%] w-8 h-8 text-gray-800 bg-white rounded-full shadow-lg p-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a5.122 5.122 0 01-.868-.083 3.1 3.1 0 01-1.996-1.679A3.007 3.007 0 0015.26 2a3.155 3.155 0 00-2.79 1.611V2.5a2.5 2.5 0 00-5 0v11.22A3.75 3.75 0 119.26 8.97V5.916a6.255 6.255 0 013.781 1.028 5.121 5.121 0 011.57.97c.54.453 1.03.97 1.456 1.544.426.573.793 1.194 1.099 1.856.612 1.322.919 2.791.919 4.33 0 .695-.036 1.387-.107 2.075a8.986 8.986 0 01-.697 2.633 8.08 8.08 0 01-2.96 3.236 8.286 8.286 0 01-9.164-1.207 8.05 8.05 0 01-1.67-2.43 7.95 7.95 0 01-.937-3.153 8.206 8.206 0 01.127-3.406 7.97 7.97 0 011.45-2.903 8.025 8.025 0 012.46-2.078 8.255 8.255 0 013.27-.861v-5a13.37 13.37 0 00-2.66.268A13.154 13.154 0 002.93 6.27 12.972 12.972 0 001 10.063a12.85 12.85 0 00.36 4.12 13.162 13.162 0 001.94 3.689 12.842 12.842 0 003.13 2.804 13.024 13.024 0 006.88 1.556 12.85 12.85 0 003.46-.44 13.048 13.048 0 003.02-1.5 13.123 13.123 0 002.29-2.5 12.896 12.896 0 001.59-3.46 13.108 13.108 0 00.77-3.99 13.36 13.36 0 00.09-2.55 13.049 13.049 0 00-.77-2.76 12.952 12.952 0 00-1.89-2.69 13.12 13.12 0 00-2.87-1.99 13.244 13.244 0 00-3.68-.81z"/></svg>
+        
+        <!-- Twitter -->
+        <svg class="absolute floating-icon top-[12%] right-[33%] w-7 h-7 text-blue-400 bg-white rounded-full shadow-lg p-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.868 9.868 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
     </div>
+    
     <!-- Headline / Subheadline -->
     <h1 id="landing-headline" class="text-4xl md:text-6xl font-extrabold mb-3 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gold-300 via-blue-400 to-gold-500 cursor-pointer">Buy & Sell Verified Accounts in Nigeria</h1>
     <h2 id="landing-subheadline" class="text-lg md:text-2xl font-medium mb-8 text-gray-400">Instant social media marketplaces, boosting, and secure wallet payments. All your digital needs in one place.</h2>
-    <div class="flex gap-6 mb-8 justify-center">
+    
+    <div class="flex gap-6 mb-8 justify-center flex-wrap">
         <button onclick="openModal('signup-modal')" class="neon-btn px-8 py-3 rounded-full font-bold bg-gradient-to-r from-blue-400 to-gold-400 text-black text-lg shadow hover:scale-105 transition">Get Started</button>
         <a href="/marketplace.html" class="px-8 py-3 rounded-full bg-white/10 text-white font-bold border border-gold-200 hover:bg-black/30 transition">Explore Marketplace</a>
     </div>
+    
     <div id="walletPreviewMobile" class="md:hidden text-gold-400 text-lg mb-2">
         Wallet Balance: <span id="wallet-balance-mobile">₦0</span>
     </div>
@@ -85,22 +93,22 @@
     <h2 class="text-2xl md:text-4xl font-bold mb-8 text-gold-400 text-center">How Vendora Works</h2>
     <div class="grid md:grid-cols-4 gap-6">
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="user-plus" class="w-10 h-10 text-blue-400"></i>
+            <svg class="w-10 h-10 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
             <span class="font-bold">1. Create Your Free Account</span>
             <span class="text-xs text-gray-400 text-center">Sign up in seconds using your email & password</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="credit-card" class="w-10 h-10 text-gold-400"></i>
+            <svg class="w-10 h-10 text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
             <span class="font-bold">2. Fund Your Wallet</span>
             <span class="text-xs text-gray-400 text-center">Deposit easily via Kora Pay, Flutterwave, or local cards</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="shopping-bag" class="w-10 h-10 text-blue-400"></i>
+            <svg class="w-10 h-10 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
             <span class="font-bold">3. Shop & Boost Instantly</span>
             <span class="text-xs text-gray-400 text-center">Choose accounts, boosting, or digital products</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="zap" class="w-10 h-10 text-gold-400"></i>
+            <svg class="w-10 h-10 text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
             <span class="font-bold">4. Instant Delivery</span>
             <span class="text-xs text-gray-400 text-center">Get secure download or credentials instantly after payment</span>
         </div>
@@ -112,35 +120,35 @@
     <h2 class="text-2xl font-bold mb-8 text-center">Popular Categories</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="shield-check" class="w-9 h-9 text-gold-400"></i>
+            <svg class="w-9 h-9 text-gold-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <span>Verified Accounts</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="message-circle" class="w-9 h-9 text-green-300"></i>
+            <svg class="w-9 h-9 text-green-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             <span>WhatsApp Numbers</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="facebook" class="w-9 h-9 text-blue-500"></i>
+            <svg class="w-9 h-9 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             <span>Facebook</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="instagram" class="w-9 h-9 text-pink-400"></i>
+            <svg class="w-9 h-9 text-pink-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/></svg>
             <span>Instagram</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="tiktok" class="w-9 h-9 text-gray-200"></i>
+            <svg class="w-9 h-9 text-gray-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 11c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z"/></svg>
             <span>TikTok</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="zap" class="w-9 h-9 text-yellow-300"></i>
+            <svg class="w-9 h-9 text-yellow-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
             <span>Boosting Services</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="shopping-cart" class="w-9 h-9 text-blue-300"></i>
+            <svg class="w-9 h-9 text-blue-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
             <span>Digital Products</span>
         </div>
         <div class="glass p-6 flex flex-col gap-3 items-center">
-            <i data-lucide="lock" class="w-9 h-9 text-purple-400"></i>
+            <svg class="w-9 h-9 text-purple-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v4"></path></svg>
             <span>Others</span>
         </div>
     </div>
@@ -151,22 +159,22 @@
     <h2 class="text-2xl md:text-4xl text-center font-bold text-gold-400 mb-8">Why Choose Vendora Market?</h2>
     <div class="grid md:grid-cols-4 gap-6 text-center">
         <div class="glass p-6">
-            <i data-lucide="zap" class="w-10 h-10 text-gold-400 mb-3"></i>
+            <svg class="w-10 h-10 text-gold-400 mb-3 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
             <div class="font-semibold mb-1">Instant Delivery</div>
             <div class="text-xs text-gray-400">Receive purchased products or credentials immediately, 24/7.</div>
         </div>
         <div class="glass p-6">
-            <i data-lucide="shield" class="w-10 h-10 text-blue-400 mb-3"></i>
+            <svg class="w-10 h-10 text-blue-400 mb-3 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <div class="font-semibold mb-1">100% Secure</div>
             <div class="text-xs text-gray-400">Built for trust. Data & payments are encrypted and secure.</div>
         </div>
         <div class="glass p-6">
-            <i data-lucide="user-check" class="w-10 h-10 text-green-400 mb-3"></i>
+            <svg class="w-10 h-10 text-green-400 mb-3 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
             <div class="font-semibold mb-1">Purely Nigerian</div>
             <div class="text-xs text-gray-400">Local support & payment. Built for Nigeria's unique needs.</div>
         </div>
         <div class="glass p-6">
-            <i data-lucide="award" class="w-10 h-10 text-gold-300 mb-3"></i>
+            <svg class="w-10 h-10 text-gold-300 mb-3 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8 14 8 21 16 21 16 14"></polyline></svg>
             <div class="font-semibold mb-1">Premium Support</div>
             <div class="text-xs text-gray-400">Human help available every day. We care about your success.</div>
         </div>
@@ -224,27 +232,27 @@
     <h2 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
     <div class="glass py-8 px-4 rounded-xl">
         <div class="mb-4">
-            <button class="font-bold" onclick="document.getElementById('faq1').classList.toggle('hidden')">Q: Is Vendora safe?</button>
+            <button class="font-bold cursor-pointer" onclick="document.getElementById('faq1').classList.toggle('hidden')">Q: Is Vendora safe?</button>
             <div id="faq1" class="text-sm text-gray-400 hidden">Absolutely. Your transactions and data are secured via bank-level encryption and trusted payment partners. We review all products.</div>
         </div>
         <div class="mb-4">
-            <button class="font-bold" onclick="document.getElementById('faq2').classList.toggle('hidden')">Q: How fast is account delivery?</button>
+            <button class="font-bold cursor-pointer" onclick="document.getElementById('faq2').classList.toggle('hidden')">Q: How fast is account delivery?</button>
             <div id="faq2" class="text-sm text-gray-400 hidden">Instant! As soon as payment confirms, access/login details or your digital product are shown to you immediately.</div>
         </div>
         <div class="mb-4">
-            <button class="font-bold" onclick="document.getElementById('faq3').classList.toggle('hidden')">Q: How do I buy or sell?</button>
+            <button class="font-bold cursor-pointer" onclick="document.getElementById('faq3').classList.toggle('hidden')">Q: How do I buy or sell?</button>
             <div id="faq3" class="text-sm text-gray-400 hidden">Just sign up, fund your wallet, and purchase any product. To sell, apply as a vendor via support.</div>
         </div>
         <div class="mb-4">
-            <button class="font-bold" onclick="document.getElementById('faq4').classList.toggle('hidden')">Q: Refund Policy?</button>
+            <button class="font-bold cursor-pointer" onclick="document.getElementById('faq4').classList.toggle('hidden')">Q: Refund Policy?</button>
             <div id="faq4" class="text-sm text-gray-400 hidden">We refund fully if your purchase is not delivered or product was incorrectly listed. See <a href="/refund.html" class="underline">Refunds</a></div>
         </div>
     </div>
 </section>
 
 <!-- HELP/SUPPORT FLOATING CHAT BUTTON -->
-<button onclick="openModal('support-modal')" class="fixed z-50 right-5 bottom-5 glass shadow-lg rounded-full w-16 h-16 flex items-center justify-center neon-btn bg-gradient-to-r from-gold-400 to-blue-500 text-black text-2xl animate-bounce" title="Chat/Support">
-    <i data-lucide="help-circle"></i>
+<button onclick="openModal('support-modal')" class="fixed z-50 right-5 bottom-5 glass shadow-lg rounded-full w-16 h-16 flex items-center justify-center neon-btn bg-gradient-to-r from-gold-400 to-blue-500 text-black text-2xl animate-bounce hover:scale-110 transition" title="Chat/Support">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-7 h-7"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
 </button>
 
 <!-- FOOTER -->
@@ -262,13 +270,15 @@
 <!-- Signup Modal -->
 <div id="signup-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
     <div class="bg-white dark:bg-black max-w-md w-full p-8 rounded-xl relative glass border shadow-2xl">
-        <button class="absolute top-2 right-2" onclick="closeModal('signup-modal')"><i data-lucide="x"></i></button>
+        <button class="absolute top-2 right-2 hover:scale-110 transition" onclick="closeModal('signup-modal')">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
         <h2 class="font-bold text-2xl mb-4">Create Account</h2>
         <form id="signupForm" class="flex flex-col gap-3" onsubmit="handleSignup(event)">
-            <input required name="name" placeholder="Full Name" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border" />
-            <input required type="email" name="email" placeholder="Email" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border" />
-            <input required type="password" name="password" placeholder="Password" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border" />
-            <button class="mt-3 neon-btn bg-gradient-to-r from-gold-400 to-blue-500 px-5 py-2 rounded-full text-black font-bold" type="submit">Sign Up</button>
+            <input required name="name" placeholder="Full Name" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border text-black dark:text-white" />
+            <input required type="email" name="email" placeholder="Email" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border text-black dark:text-white" />
+            <input required type="password" name="password" placeholder="Password" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border text-black dark:text-white" />
+            <button class="mt-3 neon-btn bg-gradient-to-r from-gold-400 to-blue-500 px-5 py-2 rounded-full text-black font-bold hover:scale-105 transition" type="submit">Sign Up</button>
             <p id="auth-error" class="text-red-500 text-xs"></p>
         </form>
         <div class="mt-2 text-sm text-center">
@@ -280,7 +290,9 @@
 <!-- Notifications Modal -->
 <div id="notifications-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 hidden">
     <div class="bg-white dark:bg-black max-w-sm w-full p-6 rounded-xl relative glass border">
-        <button class="absolute top-2 right-2" onclick="closeModal('notifications-modal')"><i data-lucide="x"></i></button>
+        <button class="absolute top-2 right-2 hover:scale-110 transition" onclick="closeModal('notifications-modal')">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
         <h3 class="font-bold text-lg mb-3">Notifications</h3>
         <div id="notifications-list" class="flex flex-col gap-2 max-h-72 overflow-y-auto"></div>
     </div>
@@ -289,11 +301,13 @@
 <!-- Support/Help Modal -->
 <div id="support-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
     <div class="bg-white dark:bg-black w-80 p-5 rounded-lg glass border">
-        <button class="absolute top-3 right-3" onclick="closeModal('support-modal')"><i data-lucide="x"></i></button>
+        <button class="absolute top-3 right-3 hover:scale-110 transition" onclick="closeModal('support-modal')">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
         <h3 class="font-bold text-lg mb-3 text-center">Support / Help</h3>
         <form id="supportForm" class="flex flex-col gap-3" onsubmit="sendSupportMessage(event)">
-            <textarea required name="message" placeholder="Your question or complaint..." class="p-2 rounded min-h-[80px] bg-slate-50 dark:bg-slate-900 border"></textarea>
-            <button class="bg-gradient-to-r from-gold-400 to-blue-500 px-5 py-2 neon-btn rounded-full text-black font-bold" type="submit">Send</button>
+            <textarea required name="message" placeholder="Your question or complaint..." class="p-2 rounded min-h-[80px] bg-slate-50 dark:bg-slate-900 border text-black dark:text-white"></textarea>
+            <button class="bg-gradient-to-r from-gold-400 to-blue-500 px-5 py-2 neon-btn rounded-full text-black font-bold hover:scale-105 transition" type="submit">Send</button>
         </form>
     </div>
 </div>
@@ -307,8 +321,10 @@
 <script src="/assets/js/support.js"></script>
 
 <script>
-    // Lucide icons activation
-    lucide.createIcons();
+    // Initialize Lucide Icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 
     // Load featured products into section
     window.addEventListener('DOMContentLoaded', async () => {
@@ -317,17 +333,19 @@
         const { data: products } = await supabase.from('products').select('*').eq('is_featured', true).limit(6);
         document.getElementById('featured-products-grid').innerHTML =
             (products || []).map(p => `
-                <div class="glass rounded-xl shadow-lg flex flex-col gap-2">
-                    <img src="${p.image_url || '/assets/img/placeholder-hero.png'}" class="w-full aspect-video object-cover rounded-xl mb-3" />
+                <div class="glass rounded-xl shadow-lg flex flex-col gap-2 p-4">
+                    <img src="${p.image_url || '/assets/img/placeholder-hero.png'}" class="w-full aspect-video object-cover rounded-xl mb-3" onerror="this.src='/assets/img/placeholder-hero.png'" />
                     <div class="font-bold text-md">${p.title}</div>
                     <div class="text-xs text-gray-400">${p.category}</div>
                     <div class="font-semibold text-gold-400 mb-1">₦${p.price&&(parseFloat(p.price).toLocaleString())}</div>
-                    <a href="/marketplace.html" class="text-blue-400 font-semibold underline">Buy Now</a>
+                    <a href="/marketplace.html" class="text-blue-400 font-semibold underline hover:text-blue-300">Buy Now</a>
                 </div>
             `).join('');
     });
     // Load notifications badge
-    window.fetchNotificationsIcon();
+    if (window.fetchNotificationsIcon) {
+        window.fetchNotificationsIcon();
+    }
 </script>
 </body>
 </html>
