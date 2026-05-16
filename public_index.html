@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-white dark:bg-black scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendora Market - Nigeria's Digital Marketplace</title>
+    <link rel="icon" href="favicon.ico" />
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/styles/custom.css" />
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <meta name="theme-color" content="#050814" />
+</head>
+<body class="bg-gradient-to-r from-[#15141E] via-[#050814] to-[#162237] dark:from-black dark:to-[#0c1127] text-white min-h-screen">
+
+<!-- Navigation Bar -->
+<nav class="flex items-center justify-between px-5 py-4 glass mb-2 fixed w-full z-40 shadow-md">
+    <div class="flex items-center gap-2">
+        <img src="/assets/img/logo.png" alt="Logo" class="h-9 rounded-full shadow" />
+        <span class="font-bold text-xl tracking-wide text-gold-400">Vendora Market</span>
+    </div>
+    <div class="flex items-center gap-4">
+        <button onclick="openModal('signup-modal')" class="neon-btn px-5 py-2 rounded-full font-semibold bg-gradient-to-r from-gold-400 to-blue-500">Create Account</button>
+        <a href="/login.html" class="font-semibold hover:underline">Login</a>
+        <button onclick="toggleDarkMode()" title="Toggle dark mode">
+            <i data-lucide="moon" class="w-7 h-7 text-gold-300"></i>
+        </button>
+        <div onclick="openModal('notifications-modal')" class="relative cursor-pointer ml-2">
+            <i data-lucide="bell" class="w-7 h-7"></i>
+            <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-600 text-xs px-1.5 rounded-full"></span>
+        </div>
+        <a href="/wallet.html" class="hidden md:inline-block ml-4 px-4 py-1 rounded-full glass text-gold-400 border border-gold-400 font-bold">Wallet <span id="walletPreview">₦0</span></a>
+    </div>
+</nav>
+<div class="h-20"></div>
+
+<!-- HERO SECTION -->
+<section class="relative h-[90vh] flex flex-col items-center justify-center text-center z-10 overflow-hidden">
+    <!-- AI hero image and floating social icons -->
+    <div class="relative flex justify-center items-center mb-7 w-full">
+        <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
+            <img id="hero-ai-img" src="/assets/img/placeholder-hero.png"
+                 alt="AI Hero Marketplace" class="rounded-[2rem] glass shadow-2xl w-[310px] h-[280px] transition-all duration-500" />
+            <div id="hero-ai-loading" class="hidden absolute inset-0 flex items-center justify-center bg-black/30 glass rounded-[2rem]">
+                <svg class="animate-spin h-10 w-10 text-gold-400" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="3" stroke="currentColor" fill="none"/></svg>
+            </div>
+        </div>
+        <!-- Floating Social Media Logos -->
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/whatsapp.svg"
+            class="absolute floating-icon left-[10%] top-[45%] w-8 h-8 bg-white rounded-full shadow-lg p-1" alt="WhatsApp" />
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg"
+            class="absolute floating-icon left-[25%] top-[15%] w-9 h-9 bg-white rounded-full shadow-lg p-1" alt="Facebook" />
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg"
+            class="absolute floating-icon right-[14%] top-[25%] w-8 h-8 bg-white rounded-full shadow-lg p-1" alt="Instagram" />
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tiktok.svg"
+            class="absolute floating-icon bottom-[13%] right-[30%] w-8 h-8 bg-white rounded-full shadow-lg p-1" alt="TikTok" />
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/twitter.svg"
+            class="absolute floating-icon top-[12%] right-[33%] w-7 h-7 bg-white rounded-full shadow-lg p-1" alt="Twitter" />
+    </div>
+    <!-- Headline / Subheadline -->
+    <h1 id="landing-headline" class="text-4xl md:text-6xl font-extrabold mb-3 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gold-300 via-blue-400 to-gold-500 cursor-pointer">Buy & Sell Verified Accounts in Nigeria</h1>
+    <h2 id="landing-subheadline" class="text-lg md:text-2xl font-medium mb-8 text-gray-400">Instant social media marketplaces, boosting, and secure wallet payments. All your digital needs in one place.</h2>
+    <div class="flex gap-6 mb-8 justify-center">
+        <button onclick="openModal('signup-modal')" class="neon-btn px-8 py-3 rounded-full font-bold bg-gradient-to-r from-blue-400 to-gold-400 text-black text-lg shadow hover:scale-105 transition">Get Started</button>
+        <a href="/marketplace.html" class="px-8 py-3 rounded-full bg-white/10 text-white font-bold border border-gold-200 hover:bg-black/30 transition">Explore Marketplace</a>
+    </div>
+    <div id="walletPreviewMobile" class="md:hidden text-gold-400 text-lg mb-2">
+        Wallet Balance: <span id="wallet-balance-mobile">₦0</span>
+    </div>
+</section>
+
+<!-- AD BANNER (admin-controlled) -->
+<section id="ad-banner" class="py-5 flex justify-center">
+    <a href="#" class="w-full max-w-2xl glass rounded-xl overflow-hidden shadow" title="Sponsored">
+        <img src="/assets/img/placeholder-banner.png" alt="Ad Banner" class="w-full" />
+    </a>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-20 px-4 max-w-5xl mx-auto">
+    <h2 class="text-2xl md:text-4xl font-bold mb-8 text-gold-400 text-center">How Vendora Works</h2>
+    <div class="grid md:grid-cols-4 gap-6">
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="user-plus" class="w-10 h-10 text-blue-400"></i>
+            <span class="font-bold">1. Create Your Free Account</span>
+            <span class="text-xs text-gray-400 text-center">Sign up in seconds using your email & password</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="credit-card" class="w-10 h-10 text-gold-400"></i>
+            <span class="font-bold">2. Fund Your Wallet</span>
+            <span class="text-xs text-gray-400 text-center">Deposit easily via Kora Pay, Flutterwave, or local cards</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="shopping-bag" class="w-10 h-10 text-blue-400"></i>
+            <span class="font-bold">3. Shop & Boost Instantly</span>
+            <span class="text-xs text-gray-400 text-center">Choose accounts, boosting, or digital products</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="zap" class="w-10 h-10 text-gold-400"></i>
+            <span class="font-bold">4. Instant Delivery</span>
+            <span class="text-xs text-gray-400 text-center">Get secure download or credentials instantly after payment</span>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="py-14 px-4 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold mb-8 text-center">Popular Categories</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="shield-check" class="w-9 h-9 text-gold-400"></i>
+            <span>Verified Accounts</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="message-circle" class="w-9 h-9 text-green-300"></i>
+            <span>WhatsApp Numbers</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="facebook" class="w-9 h-9 text-blue-500"></i>
+            <span>Facebook</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="instagram" class="w-9 h-9 text-pink-400"></i>
+            <span>Instagram</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="tiktok" class="w-9 h-9 text-gray-200"></i>
+            <span>TikTok</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="zap" class="w-9 h-9 text-yellow-300"></i>
+            <span>Boosting Services</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="shopping-cart" class="w-9 h-9 text-blue-300"></i>
+            <span>Digital Products</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-3 items-center">
+            <i data-lucide="lock" class="w-9 h-9 text-purple-400"></i>
+            <span>Others</span>
+        </div>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="py-16 px-4 max-w-5xl mx-auto">
+    <h2 class="text-2xl md:text-4xl text-center font-bold text-gold-400 mb-8">Why Choose Vendora Market?</h2>
+    <div class="grid md:grid-cols-4 gap-6 text-center">
+        <div class="glass p-6">
+            <i data-lucide="zap" class="w-10 h-10 text-gold-400 mb-3"></i>
+            <div class="font-semibold mb-1">Instant Delivery</div>
+            <div class="text-xs text-gray-400">Receive purchased products or credentials immediately, 24/7.</div>
+        </div>
+        <div class="glass p-6">
+            <i data-lucide="shield" class="w-10 h-10 text-blue-400 mb-3"></i>
+            <div class="font-semibold mb-1">100% Secure</div>
+            <div class="text-xs text-gray-400">Built for trust. Data & payments are encrypted and secure.</div>
+        </div>
+        <div class="glass p-6">
+            <i data-lucide="user-check" class="w-10 h-10 text-green-400 mb-3"></i>
+            <div class="font-semibold mb-1">Purely Nigerian</div>
+            <div class="text-xs text-gray-400">Local support & payment. Built for Nigeria's unique needs.</div>
+        </div>
+        <div class="glass p-6">
+            <i data-lucide="award" class="w-10 h-10 text-gold-300 mb-3"></i>
+            <div class="font-semibold mb-1">Premium Support</div>
+            <div class="text-xs text-gray-400">Human help available every day. We care about your success.</div>
+        </div>
+    </div>
+</section>
+
+<!-- LIVE COUNTERS -->
+<section class="flex justify-center gap-10 py-10 text-center px-2">
+    <div>
+        <div class="text-3xl font-bold stat-counter" data-target="14500">0</div>
+        <div class="text-xs text-gold-400">Accounts Sold</div>
+    </div>
+    <div>
+        <div class="text-3xl font-bold stat-counter" data-target="2500">0</div>
+        <div class="text-xs text-blue-400">Active Wallets</div>
+    </div>
+    <div>
+        <div class="text-3xl font-bold stat-counter" data-target="248">0</div>
+        <div class="text-xs text-gold-400">Vendors Nationwide</div>
+    </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="py-16 px-4 max-w-6xl mx-auto" id="featuredProducts">
+    <h2 class="text-2xl font-bold text-center mb-8">Featured Products</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="featured-products-grid">
+        <!-- Product cards will be inserted here by JS -->
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-16 px-2 max-w-4xl mx-auto">
+    <h2 class="text-2xl text-center font-bold text-gold-400 mb-8">Trusted by Nigerians Nationwide</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="glass p-6 flex flex-col gap-2 items-center">
+            <img src="https://randomuser.me/api/portraits/men/21.jpg" class="w-14 h-14 rounded-full mb-2 border-2 border-gold-400" alt="Buyer"/>
+            <span class="font-bold">Uche (Lagos)</span>
+            <span class="italic text-sm text-gray-400 text-center">"Super smooth and quick! Bought a verified WhatsApp, got details instantly."</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-2 items-center">
+            <img src="https://randomuser.me/api/portraits/women/33.jpg" class="w-14 h-14 rounded-full mb-2 border-2 border-gold-400" alt="Buyer"/>
+            <span class="font-bold">Chidinma (Abuja)</span>
+            <span class="italic text-sm text-gray-400 text-center">"Vendora is legit. Support answered fast when I needed help. 100% recommend."</span>
+        </div>
+        <div class="glass p-6 flex flex-col gap-2 items-center">
+            <img src="https://randomuser.me/api/portraits/men/55.jpg" class="w-14 h-14 rounded-full mb-2 border-2 border-gold-400" alt="Buyer"/>
+            <span class="font-bold">Olu (Ibadan)</span>
+            <span class="italic text-sm text-gray-400 text-center">"Fantastic boosting services and easy wallet deposits. All-in-one!"</span>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16 px-2 max-w-4xl mx-auto">
+    <h2 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+    <div class="glass py-8 px-4 rounded-xl">
+        <div class="mb-4">
+            <button class="font-bold" onclick="document.getElementById('faq1').classList.toggle('hidden')">Q: Is Vendora safe?</button>
+            <div id="faq1" class="text-sm text-gray-400 hidden">Absolutely. Your transactions and data are secured via bank-level encryption and trusted payment partners. We review all products.</div>
+        </div>
+        <div class="mb-4">
+            <button class="font-bold" onclick="document.getElementById('faq2').classList.toggle('hidden')">Q: How fast is account delivery?</button>
+            <div id="faq2" class="text-sm text-gray-400 hidden">Instant! As soon as payment confirms, access/login details or your digital product are shown to you immediately.</div>
+        </div>
+        <div class="mb-4">
+            <button class="font-bold" onclick="document.getElementById('faq3').classList.toggle('hidden')">Q: How do I buy or sell?</button>
+            <div id="faq3" class="text-sm text-gray-400 hidden">Just sign up, fund your wallet, and purchase any product. To sell, apply as a vendor via support.</div>
+        </div>
+        <div class="mb-4">
+            <button class="font-bold" onclick="document.getElementById('faq4').classList.toggle('hidden')">Q: Refund Policy?</button>
+            <div id="faq4" class="text-sm text-gray-400 hidden">We refund fully if your purchase is not delivered or product was incorrectly listed. See <a href="/refund.html" class="underline">Refunds</a></div>
+        </div>
+    </div>
+</section>
+
+<!-- HELP/SUPPORT FLOATING CHAT BUTTON -->
+<button onclick="openModal('support-modal')" class="fixed z-50 right-5 bottom-5 glass shadow-lg rounded-full w-16 h-16 flex items-center justify-center neon-btn bg-gradient-to-r from-gold-400 to-blue-500 text-black text-2xl animate-bounce" title="Chat/Support">
+    <i data-lucide="help-circle"></i>
+</button>
+
+<!-- FOOTER -->
+<footer class="py-8 text-center text-sm text-gray-300 mt-8">
+    <div class="mb-2 font-semibold text-gold-400">
+        Vendora Market &copy; 2026 - Made in Nigeria
+    </div>
+    <div>
+        <a href="/terms.html" class="underline text-gold-300 mx-1">Terms</a> |
+        <a href="/privacy.html" class="underline text-gold-300 mx-1">Privacy</a> |
+        <a href="/refund.html" class="underline text-gold-300 mx-1">Refunds</a>
+    </div>
+</footer>
+
+<!-- Signup Modal -->
+<div id="signup-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
+    <div class="bg-white dark:bg-black max-w-md w-full p-8 rounded-xl relative glass border shadow-2xl">
+        <button class="absolute top-2 right-2" onclick="closeModal('signup-modal')"><i data-lucide="x"></i></button>
+        <h2 class="font-bold text-2xl mb-4">Create Account</h2>
+        <form id="signupForm" class="flex flex-col gap-3" onsubmit="handleSignup(event)">
+            <input required name="name" placeholder="Full Name" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border" />
+            <input required type="email" name="email" placeholder="Email" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border" />
+            <input required type="password" name="password" placeholder="Password" class="p-2 rounded bg-slate-50 dark:bg-slate-900 border" />
+            <button class="mt-3 neon-btn bg-gradient-to-r from-gold-400 to-blue-500 px-5 py-2 rounded-full text-black font-bold" type="submit">Sign Up</button>
+            <p id="auth-error" class="text-red-500 text-xs"></p>
+        </form>
+        <div class="mt-2 text-sm text-center">
+            Already have an account? <a href="/login.html" class="text-blue-500 underline">Login</a>
+        </div>
+    </div>
+</div>
+
+<!-- Notifications Modal -->
+<div id="notifications-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 hidden">
+    <div class="bg-white dark:bg-black max-w-sm w-full p-6 rounded-xl relative glass border">
+        <button class="absolute top-2 right-2" onclick="closeModal('notifications-modal')"><i data-lucide="x"></i></button>
+        <h3 class="font-bold text-lg mb-3">Notifications</h3>
+        <div id="notifications-list" class="flex flex-col gap-2 max-h-72 overflow-y-auto"></div>
+    </div>
+</div>
+
+<!-- Support/Help Modal -->
+<div id="support-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+    <div class="bg-white dark:bg-black w-80 p-5 rounded-lg glass border">
+        <button class="absolute top-3 right-3" onclick="closeModal('support-modal')"><i data-lucide="x"></i></button>
+        <h3 class="font-bold text-lg mb-3 text-center">Support / Help</h3>
+        <form id="supportForm" class="flex flex-col gap-3" onsubmit="sendSupportMessage(event)">
+            <textarea required name="message" placeholder="Your question or complaint..." class="p-2 rounded min-h-[80px] bg-slate-50 dark:bg-slate-900 border"></textarea>
+            <button class="bg-gradient-to-r from-gold-400 to-blue-500 px-5 py-2 neon-btn rounded-full text-black font-bold" type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/ai-hero.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script src="/assets/js/notifications.js"></script>
+<script src="/assets/js/support.js"></script>
+
+<script>
+    // Lucide icons activation
+    lucide.createIcons();
+
+    // Load featured products into section
+    window.addEventListener('DOMContentLoaded', async () => {
+        const { supabase } = window.VendoraSupabase || {};
+        if (!supabase) return;
+        const { data: products } = await supabase.from('products').select('*').eq('is_featured', true).limit(6);
+        document.getElementById('featured-products-grid').innerHTML =
+            (products || []).map(p => `
+                <div class="glass rounded-xl shadow-lg flex flex-col gap-2">
+                    <img src="${p.image_url || '/assets/img/placeholder-hero.png'}" class="w-full aspect-video object-cover rounded-xl mb-3" />
+                    <div class="font-bold text-md">${p.title}</div>
+                    <div class="text-xs text-gray-400">${p.category}</div>
+                    <div class="font-semibold text-gold-400 mb-1">₦${p.price&&(parseFloat(p.price).toLocaleString())}</div>
+                    <a href="/marketplace.html" class="text-blue-400 font-semibold underline">Buy Now</a>
+                </div>
+            `).join('');
+    });
+    // Load notifications badge
+    window.fetchNotificationsIcon();
+</script>
+</body>
+</html>
