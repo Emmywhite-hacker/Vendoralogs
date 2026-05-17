@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - Vendora Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles/custom.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-black via-blue-900 to-green-900 text-white">
+    <nav class="bg-black/40 backdrop-blur-md border-b border-green-500/20 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="/assets/img/logo.png" alt="Logo" class="h-8 w-8 rounded-full" onerror="this.textContent='V'">
+                <span class="font-bold text-green-400">Vendora Admin - Products</span>
+            </div>
+            <button onclick="handleLogout()" class="px-4 py-2 rounded-full bg-red-500/20 border border-red-500/50 text-red-400 font-bold hover:bg-red-500/30">
+                Logout
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold text-green-400 mb-8">Manage Products</h1>
+        
+        <form id="productForm" class="bg-black/40 border border-green-500/50 p-6 rounded-xl mb-8" onsubmit="addProduct(event)">
+            <h2 class="text-2xl font-bold text-green-400 mb-6">Add New Product</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <input name="title" required placeholder="Product Title" class="p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500" />
+                <select name="category" required class="p-3 rounded bg-slate-900 border border-gray-700 text-white">
+                    <option value="">Select Category</option>
+                    <option>Verified Accounts</option>
+                    <option>WhatsApp Numbers</option>
+                    <option>Facebook</option>
+                    <option>TikTok</option>
+                    <option>Instagram</option>
+                    <option>Boosting Services</option>
+                    <option>Digital Products</option>
+                </select>
+                <input name="price" type="number" required placeholder="Price (NGN)" class="p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500" step="0.01" />
+                <input name="image_url" placeholder="Image URL" class="p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500" />
+                <textarea name="description" placeholder="Product Description" class="md:col-span-2 p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500 min-h-24"></textarea>
+                <label class="flex items-center gap-2 md:col-span-2">
+                    <input name="is_featured" type="checkbox" class="w-4 h-4" />
+                    <span>Feature this product on homepage</span>
+                </label>
+            </div>
+            <button type="submit" class="mt-4 px-6 py-3 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-black font-bold hover:scale-105 transition">
+                Add Product
+            </button>
+            <p id="form-message" class="text-sm mt-2 hidden"></p>
+        </form>
+
+        <h2 class="text-2xl font-bold text-green-400 mb-6">All Products</h2>
+        <div id="products-list" class="space-y-4">
+            <!-- Populated by JavaScript -->
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/assets/js/supabase.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    
+    <script>
+        async function addProduct(e) {
+            e.preventDefault();
+            const supabase = window.VendoraSupabase.supabase;
+            const form = e.target;
+            
+            try {
+                const { error } = await supabase.from('products').insert([{
+                    title: form.title.value,
+                    description: form.description.value,
+                    category: form.category.value,
+                    price: parseFloat(form.price.value),
+                    image_url: form.image_url.value,
+                    is_featured: form.is_featured.checked
+                }]);
+                
+                if (error) throw error;
+                
+                const msg = document.getElementById('form-message');
+                msg.textContent = '✅ Product added successfully!';
+                msg.classList.remove('hidden', 'text-red-500');
+                msg.classList.add('text-green-500');
+                
+                form.reset();
+                setTimeout(() => loadProducts(), 1000);
+                
+            } catch (error) {
+                const msg = document.getElementById('form-message');
+                msg.textContent = '❌ Error: ' + error.message;
+                msg.classList.remove('hidden', 'text-green-500');
+                msg.classList.add('text-red-500');
+            }
+        }
+
+        async function loadProducts() {
+            const supabase = window.VendoraSupabase.supabase;
+            
+            try {
+                const { data: products, error } = await supabase.from('products').select('*');
+                if (error) throw error;
+                
+                const list = document.getElementById('products-list');
+                list.innerHTML = (products || []).map(p => `
+                    <div class="bg-black/40 border border-green-500/50 p-4 rounded-xl flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-lg">${p.title}</div>
+                            <div class="text-sm text-gray-400">${p.category}</div>
+                            <div class="text-green-400 font-semibold">₦${parseFloat(p.price).toLocaleString()}</div>
+                            ${p.is_featured ? '<div class="text-xs text-yellow-400">⭐ Featured</div>' : ''}
+                        </div>
+                        <button onclick="deleteProduct('${p.id}')" class="px-4 py-2 rounded bg-red-600 hover:bg-red-700 font-bold">Delete</button>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm('Delete this product?')) return;
+            
+            const supabase = window.VendoraSupabase.supabase;
+            
+            try {
+                const { error } = await supabase.from('products').delete().eq('id', id);
+                if (error) throw error;
+                alert('✅ Product deleted');
+                loadProducts();
+            } catch (error) {
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            const user = await window.VendoraSupabase.getUser();
+            if (!user) {
+                window.location.href = '/login.html';
+                return;
+            }
+            loadProducts();
+        });
+    </script>
+</body>
+</html>

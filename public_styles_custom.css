@@ -1,0 +1,117 @@
+/* ========================================
+   VENDORA LOGS - CUSTOM CSS
+   ======================================== */
+
+/* Glassmorphism Effect */
+.glass {
+    background-color: rgba(15, 16, 32, 0.6);
+    backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 0.875rem;
+    border: 1px solid rgba(100, 200, 100, 0.14);
+    box-shadow: 0 8px 32px 0 rgba(13, 19, 32, 0.12);
+}
+
+/* Neon Glow Effect */
+.neon-btn {
+    box-shadow: 0 2px 16px 0 rgba(34, 197, 94, 0.5), 0 0 2px 0 rgba(52, 31, 151, 0.3);
+    transition: all 0.3s ease;
+}
+
+.neon-btn:hover {
+    box-shadow: 0 4px 24px 0 rgba(34, 197, 94, 0.7), 0 0 4px 0 rgba(59, 130, 246, 0.5);
+}
+
+/* Smooth Transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(34, 197, 94, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(34, 197, 94, 0.7);
+}
+
+/* Selection Color */
+::selection {
+    background-color: rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+}
+
+/* Form Focus States */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+/* Button Hover Effects */
+button:active {
+    transform: scale(0.98);
+}
+
+/* Animation for floating elements */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.floating-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Loading Spinner */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .glass {
+        border-radius: 0.5rem;
+    }
+    
+    body {
+        font-size: 14px;
+    }
+}

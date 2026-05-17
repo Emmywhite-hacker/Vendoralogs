@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - Vendora Logs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles/custom.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-black via-[#0a1a2e] to-[#1a0f35] text-white">
+    <nav class="bg-black/40 backdrop-blur-md border-b border-green-500/20 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="/assets/img/logo.png" alt="Logo" class="h-8 w-8 rounded-full" onerror="this.textContent='V'">
+                <span class="font-bold text-green-400">Vendora Logs</span>
+            </div>
+            <div class="flex gap-3">
+                <a href="/wallet.html" class="px-4 py-2 rounded-full bg-green-500/20 border border-green-500/50 text-green-400 font-bold hover:bg-green-500/30">
+                    Wallet
+                </a>
+                <button onclick="handleLogout()" class="px-4 py-2 rounded-full bg-red-500/20 border border-red-500/50 text-red-400 font-bold hover:bg-red-500/30">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold text-green-400 mb-6">Marketplace</h1>
+        
+        <div class="flex gap-4 mb-8">
+            <input id="searchInput" type="text" placeholder="Search products..." class="flex-1 p-3 rounded-lg bg-slate-900 border border-gray-700 text-white placeholder-gray-500" />
+            <select id="categorySelect" class="p-3 rounded-lg bg-slate-900 border border-gray-700 text-white">
+                <option value="">All Categories</option>
+                <option>Verified Accounts</option>
+                <option>WhatsApp Numbers</option>
+                <option>Facebook</option>
+                <option>TikTok</option>
+                <option>Instagram</option>
+                <option>Boosting Services</option>
+                <option>Digital Products</option>
+            </select>
+        </div>
+        
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Products loaded by JavaScript -->
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/assets/js/supabase.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/marketplace.js"></script>
+</body>
+</html>

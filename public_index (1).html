@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-white dark:bg-black scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendora Logs - Digital Marketplace</title>
+    <link rel="icon" href="/assets/img/favicon.ico" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles/custom.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body class="bg-gradient-to-r from-[#0a0e27] via-[#0f1020] to-[#1a0f35] dark:from-black text-white min-h-screen">
+
+<!-- NAVIGATION -->
+<nav class="flex items-center justify-between px-4 md:px-6 py-4 bg-black/40 backdrop-blur-md fixed w-full z-50 border-b border-green-500/20">
+    <div class="flex items-center gap-3">
+        <img src="/assets/img/logo.png" alt="Vendora" class="h-10 w-10 rounded-full shadow-lg" onerror="this.textContent='V'">
+        <span class="font-bold text-lg md:text-xl tracking-wide bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">Vendora Logs</span>
+    </div>
+    <div class="flex items-center gap-2 md:gap-4">
+        <button onclick="openModal('signup-modal')" class="px-4 py-2 rounded-full font-semibold bg-gradient-to-r from-green-400 to-blue-500 text-black hover:scale-105 transition text-sm md:text-base">
+            Create Account
+        </button>
+        <a href="/login.html" class="font-semibold hover:text-green-400 transition text-sm md:text-base">Login</a>
+        <button onclick="toggleDarkMode()" class="p-2 hover:bg-white/10 rounded-full transition">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+        <button onclick="openModal('notifications-modal')" class="relative p-2 hover:bg-white/10 rounded-full transition">
+            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-600 text-xs px-1 rounded-full hidden"></span>
+        </button>
+    </div>
+</nav>
+<div class="h-20"></div>
+
+<!-- HERO SECTION -->
+<section class="relative min-h-screen flex flex-col items-center justify-center text-center z-10 px-4 py-12">
+    <div class="relative flex justify-center items-center mb-8 w-full max-w-md">
+        <img src="/assets/img/logo.png" alt="Vendora" class="rounded-2xl shadow-2xl w-full md:max-w-sm" onerror="this.style.background='linear-gradient(135deg, #22c55e, #3b82f6)'">
+    </div>
+    
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-green-300 via-blue-400 to-green-400">
+        Buy & Sell Verified Accounts
+    </h1>
+    <h2 class="text-lg md:text-2xl font-medium mb-8 text-gray-300 max-w-2xl">
+        Instant social media marketplaces, WhatsApp numbers, boosting services, and verified accounts. All in one secure platform.
+    </h2>
+    
+    <div class="flex gap-4 mb-8 justify-center flex-wrap">
+        <button onclick="openModal('signup-modal')" class="px-8 py-3 rounded-full font-bold bg-gradient-to-r from-green-400 to-blue-500 text-black text-lg shadow-lg hover:scale-105 transition">
+            Get Started
+        </button>
+        <a href="/marketplace.html" class="px-8 py-3 rounded-full bg-white/10 text-white font-bold border border-green-400 hover:bg-green-400/10 transition">
+            Explore Market
+        </a>
+    </div>
+    
+    <div class="flex justify-center gap-8 md:gap-16 text-center text-sm md:text-base">
+        <div>
+            <div class="text-2xl md:text-3xl font-bold stat-counter text-green-400" data-target="12500">0</div>
+            <div class="text-gray-400">Accounts Sold</div>
+        </div>
+        <div>
+            <div class="text-2xl md:text-3xl font-bold stat-counter text-blue-400" data-target="3200">0</div>
+            <div class="text-gray-400">Active Users</div>
+        </div>
+        <div>
+            <div class="text-2xl md:text-3xl font-bold stat-counter text-green-400" data-target="450">0</div>
+            <div class="text-gray-400">Verified Sellers</div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-20 px-4 max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-green-400">How It Works</h2>
+    <div class="grid md:grid-cols-4 gap-6">
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-3xl font-bold text-green-400 mb-2">1</div>
+            <div class="font-bold mb-2">Create Account</div>
+            <div class="text-sm text-gray-400">Sign up with email & password in seconds</div>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-3xl font-bold text-blue-400 mb-2">2</div>
+            <div class="font-bold mb-2">Fund Wallet</div>
+            <div class="text-sm text-gray-400">Deposit via Kora Pay, Flutterwave, or cards</div>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-3xl font-bold text-green-400 mb-2">3</div>
+            <div class="font-bold mb-2">Shop Products</div>
+            <div class="text-sm text-gray-400">Browse and buy verified accounts instantly</div>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-3xl font-bold text-blue-400 mb-2">4</div>
+            <div class="font-bold mb-2">Instant Delivery</div>
+            <div class="text-sm text-gray-400">Get credentials & download links immediately</div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="py-16 px-4 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold mb-10 text-center text-green-400">Popular Categories</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 text-center hover:border-green-400 transition">
+            <div class="text-2xl mb-2">✔️</div>
+            <span class="font-semibold">Verified Accounts</span>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 text-center hover:border-green-400 transition">
+            <div class="text-2xl mb-2">💬</div>
+            <span class="font-semibold">WhatsApp Numbers</span>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 text-center hover:border-green-400 transition">
+            <div class="text-2xl mb-2">👥</div>
+            <span class="font-semibold">Facebook Accounts</span>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 text-center hover:border-green-400 transition">
+            <div class="text-2xl mb-2">🎵</div>
+            <span class="font-semibold">TikTok Accounts</span>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 text-center hover:border-green-400 transition">
+            <div class="text-2xl mb-2">📸</div>
+            <span class="font-semibold">Instagram Accounts</span>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 text-center hover:border-green-400 transition">
+            <div class="text-2xl mb-2">⚡</div>
+            <span class="font-semibold">Boosting Services</span>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 text-center hover:border-green-400 transition">
+            <div class="text-2xl mb-2">📦</div>
+            <span class="font-semibold">Digital Products</span>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 text-center hover:border-green-400 transition">
+            <div class="text-2xl mb-2">🔒</div>
+            <span class="font-semibold">Secure Delivery</span>
+        </div>
+    </div>
+</section>
+
+<!-- WHY US -->
+<section class="py-16 px-4 max-w-5xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10 text-green-400">Why Choose Vendora Logs?</h2>
+    <div class="grid md:grid-cols-4 gap-6">
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-3xl mb-3">⚡</div>
+            <div class="font-bold mb-2">Instant Delivery</div>
+            <div class="text-sm text-gray-400">Get accounts & credentials instantly after payment</div>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-3xl mb-3">🔒</div>
+            <div class="font-bold mb-2">100% Secure</div>
+            <div class="text-sm text-gray-400">Bank-level encryption & trusted payment partners</div>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-3xl mb-3">🇳🇬</div>
+            <div class="font-bold mb-2">Nigerian-Built</div>
+            <div class="text-sm text-gray-400">Local support & payment methods for Nigeria</div>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-3xl mb-3">💬</div>
+            <div class="font-bold mb-2">Premium Support</div>
+            <div class="text-sm text-gray-400">Human support available every day</div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-16 px-4 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10 text-green-400">Trusted by Nigerians</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-sm text-gray-400 mb-4">"Super fast delivery! Got my WhatsApp verified account instantly. Highly recommended!"</div>
+            <div class="font-bold">Chidi - Lagos</div>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-sm text-gray-400 mb-4">"Best marketplace for accounts in Nigeria. Support is responsive and helpful."</div>
+            <div class="font-bold">Amina - Abuja</div>
+        </div>
+        <div class="bg-black/40 p-6 rounded-xl border border-green-500/20">
+            <div class="text-sm text-gray-400 mb-4">"Legit platform. I've made multiple purchases and everything works perfectly."</div>
+            <div class="font-bold">Tunde - Port Harcourt</div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-16 px-4 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10 text-green-400">FAQ</h2>
+    <div class="bg-black/40 p-6 rounded-xl border border-green-500/20 space-y-4">
+        <div>
+            <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="font-bold w-full text-left flex justify-between items-center">
+                Is Vendora Logs safe? <span>+</span>
+            </button>
+            <div class="hidden text-sm text-gray-400 mt-2">Yes. We use bank-level encryption, verify all products, and protect customer data.</div>
+        </div>
+        <div class="border-t border-gray-700">
+            <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="font-bold w-full text-left flex justify-between items-center pt-4">
+                How fast is delivery? <span>+</span>
+            </button>
+            <div class="hidden text-sm text-gray-400 mt-2">Instant! You get access credentials immediately after payment confirmation.</div>
+        </div>
+        <div class="border-t border-gray-700">
+            <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="font-bold w-full text-left flex justify-between items-center pt-4">
+                What payment methods are supported? <span>+</span>
+            </button>
+            <div class="hidden text-sm text-gray-400 mt-2">Kora Pay, Flutterwave, bank transfers, and local card payments.</div>
+        </div>
+        <div class="border-t border-gray-700">
+            <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="font-bold w-full text-left flex justify-between items-center pt-4">
+                What if I need a refund? <span>+</span>
+            </button>
+            <div class="hidden text-sm text-gray-400 mt-2">Refunds available if product isn't delivered or doesn't work. Contact support.</div>
+        </div>
+    </div>
+</section>
+
+<!-- SUPPORT BUTTON -->
+<button onclick="openModal('support-modal')" class="fixed z-40 right-5 bottom-5 bg-gradient-to-r from-green-400 to-blue-500 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:scale-110 transition">
+    💬
+</button>
+
+<!-- FOOTER -->
+<footer class="py-8 text-center text-sm text-gray-400 border-t border-green-500/20 mt-12">
+    <div class="mb-3 font-semibold text-green-400">Vendora Logs &copy; 2026</div>
+    <div class="flex justify-center gap-4">
+        <a href="/terms.html" class="underline hover:text-green-400">Terms</a>
+        <a href="/privacy.html" class="underline hover:text-green-400">Privacy</a>
+        <a href="/refund.html" class="underline hover:text-green-400">Refunds</a>
+    </div>
+</footer>
+
+<!-- SIGNUP MODAL -->
+<div id="signup-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-black border border-green-500/50 max-w-md w-full p-8 rounded-xl shadow-2xl">
+        <h2 class="font-bold text-2xl mb-4 text-green-400">Create Account</h2>
+        <form id="signupForm" class="flex flex-col gap-3" onsubmit="handleSignup(event)">
+            <input required name="name" placeholder="Full Name" class="p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500" />
+            <input required type="email" name="email" placeholder="Email" class="p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500" />
+            <input required type="password" name="password" placeholder="Password (min 6 chars)" class="p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500" />
+            <button class="mt-2 bg-gradient-to-r from-green-400 to-blue-500 px-5 py-3 rounded-full text-black font-bold hover:scale-105 transition" type="submit">
+                Sign Up
+            </button>
+            <p id="auth-error" class="text-red-500 text-sm hidden"></p>
+        </form>
+        <div class="mt-3 text-sm text-center text-gray-400">
+            Already have an account? <a href="/login.html" class="text-green-400 underline">Login</a>
+        </div>
+    </div>
+</div>
+
+<!-- NOTIFICATIONS MODAL -->
+<div id="notifications-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-black border border-green-500/50 max-w-sm w-full p-6 rounded-xl">
+        <h3 class="font-bold text-lg mb-3 text-green-400">Notifications</h3>
+        <div id="notifications-list" class="max-h-72 overflow-y-auto text-sm"></div>
+    </div>
+</div>
+
+<!-- SUPPORT MODAL -->
+<div id="support-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden p-4">
+    <div class="bg-black border border-green-500/50 w-full max-w-sm p-6 rounded-xl">
+        <h3 class="font-bold text-lg mb-3 text-green-400">Help & Support</h3>
+        <form id="supportForm" class="flex flex-col gap-3" onsubmit="sendSupportMessage(event)">
+            <textarea required name="message" placeholder="Your message or question..." class="p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500 min-h-24"></textarea>
+            <button class="bg-gradient-to-r from-green-400 to-blue-500 px-5 py-3 rounded-full text-black font-bold hover:scale-105 transition" type="submit">
+                Send
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script src="/assets/js/supabase.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/auth.js"></script>
+<script src="/assets/js/notifications.js"></script>
+<script src="/assets/js/support.js"></script>
+
+<script>
+    console.log('✅ All scripts loaded successfully');
+</script>
+
+</body>
+</html>

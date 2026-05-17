@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet - Vendora Logs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles/custom.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-black via-[#0a1a2e] to-[#1a0f35] text-white">
+    <nav class="bg-black/40 backdrop-blur-md border-b border-green-500/20 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="/assets/img/logo.png" alt="Logo" class="h-8 w-8 rounded-full" onerror="this.textContent='V'">
+                <span class="font-bold text-green-400">Vendora Logs</span>
+            </div>
+            <div class="flex gap-3">
+                <a href="/marketplace.html" class="px-4 py-2 rounded-full bg-green-500/20 border border-green-500/50 text-green-400 font-bold hover:bg-green-500/30">
+                    Marketplace
+                </a>
+                <button onclick="handleLogout()" class="px-4 py-2 rounded-full bg-red-500/20 border border-red-500/50 text-red-400 font-bold hover:bg-red-500/30">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-3xl mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold text-green-400 mb-8">Your Wallet</h1>
+        
+        <div class="bg-black/40 border border-green-500/50 p-8 rounded-xl mb-10 text-center">
+            <div class="text-gray-400 mb-2">Wallet Balance</div>
+            <div id="wallet-balance" class="text-4xl font-bold text-green-400 mb-6">₦0</div>
+            
+            <form id="depositForm" class="flex flex-col gap-3 items-center" onsubmit="depositWallet(event)">
+                <input type="number" name="amount" required min="100" step="1" placeholder="Amount (NGN)" class="p-3 rounded bg-slate-900 border border-gray-700 text-white placeholder-gray-500 w-full max-w-xs" />
+                <button type="submit" class="px-8 py-3 rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-black font-bold hover:scale-105 transition">
+                    Deposit Funds
+                </button>
+            </form>
+        </div>
+        
+        <h2 class="text-2xl font-bold text-green-400 mb-4">Transaction History</h2>
+        <div class="bg-black/40 border border-green-500/50 rounded-xl overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-gray-700">
+                        <th class="p-4 text-left text-green-400">Date</th>
+                        <th class="p-4 text-left text-green-400">Type</th>
+                        <th class="p-4 text-left text-green-400">Amount</th>
+                        <th class="p-4 text-left text-green-400">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="wallet-txs">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/assets/js/supabase.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/wallet.js"></script>
+</body>
+</html>

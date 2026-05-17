@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Vendora Logs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles/custom.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-black via-blue-900 to-green-900 text-white">
+    <nav class="bg-black/40 backdrop-blur-md border-b border-green-500/20 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <img src="/assets/img/logo.png" alt="Logo" class="h-8 w-8 rounded-full" onerror="this.textContent='V'">
+                <span class="font-bold text-green-400">Vendora Admin</span>
+            </div>
+            <button onclick="handleLogout()" class="px-4 py-2 rounded-full bg-red-500/20 border border-red-500/50 text-red-400 font-bold hover:bg-red-500/30">
+                Logout
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto py-8 px-4">
+        <h1 class="text-3xl font-bold text-green-400 mb-8">Admin Dashboard</h1>
+        
+        <div class="grid md:grid-cols-4 gap-4 mb-10">
+            <div class="bg-black/40 border border-green-500/50 p-6 rounded-xl text-center">
+                <div class="text-sm text-gray-400">Total Users</div>
+                <div id="stat-users" class="text-3xl font-bold text-green-400 mt-2">0</div>
+            </div>
+            <div class="bg-black/40 border border-green-500/50 p-6 rounded-xl text-center">
+                <div class="text-sm text-gray-400">Total Products</div>
+                <div id="stat-products" class="text-3xl font-bold text-green-400 mt-2">0</div>
+            </div>
+            <div class="bg-black/40 border border-green-500/50 p-6 rounded-xl text-center">
+                <div class="text-sm text-gray-400">Total Orders</div>
+                <div id="stat-orders" class="text-3xl font-bold text-green-400 mt-2">0</div>
+            </div>
+            <div class="bg-black/40 border border-green-500/50 p-6 rounded-xl text-center">
+                <div class="text-sm text-gray-400">Total Revenue</div>
+                <div id="stat-revenue" class="text-3xl font-bold text-green-400 mt-2">₦0</div>
+            </div>
+        </div>
+        
+        <div class="bg-black/40 border border-green-500/50 p-6 rounded-xl mb-8">
+            <h2 class="text-2xl font-bold text-green-400 mb-4">Quick Links</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="/admin/products.html" class="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-center hover:bg-green-500/30 transition">
+                    📦 Manage Products
+                </a>
+                <a href="/admin/users.html" class="p-4 bg-blue-500/20 border border-blue-500/50 rounded-lg text-center hover:bg-blue-500/30 transition">
+                    👥 Manage Users
+                </a>
+                <a href="/admin/orders.html" class="p-4 bg-purple-500/20 border border-purple-500/50 rounded-lg text-center hover:bg-purple-500/30 transition">
+                    📋 View Orders
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="/assets/js/supabase.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    
+    <script>
+        window.addEventListener('DOMContentLoaded', async () => {
+            const user = await window.VendoraSupabase.getUser();
+            if (!user) {
+                window.location.href = '/login.html';
+                return;
+            }
+            
+            const supabase = window.VendoraSupabase.supabase;
+            
+            // Load stats
+            const { count: userCount } = await supabase
+                .from('users')
+                .select('*', { count: 'exact', head: true });
+            
+            const { count: productCount } = await supabase
+                .from('products')
+                .select('*', { count: 'exact', head: true });
+            
+            const { count: orderCount } = await supabase
+                .from('orders')
+                .select('*', { count: 'exact', head: true });
+            
+            const { data: transactions } = await supabase
+                .from('transactions')
+                .select('amount')
+                .eq('status', 'completed');
+            
+            const revenue = (transactions || []).reduce((sum, tx) => sum + (parseFloat(tx.amount) || 0), 0);
+            
+            document.getElementById('stat-users').textContent = userCount || 0;
+            document.getElementById('stat-products').textContent = productCount || 0;
+            document.getElementById('stat-orders').textContent = orderCount || 0;
+            document.getElementById('stat-revenue').textContent = '₦' + revenue.toLocaleString();
+        });
+    </script>
+</body>
+</html>
